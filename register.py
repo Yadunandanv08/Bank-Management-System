@@ -1,6 +1,9 @@
 from database import *
 import random
 from customer import *
+from bank import Bank
+
+createCustomerTable()
 
 def signup():
     username = input("create username: ")
@@ -20,8 +23,10 @@ def signup():
             else:
                 print(accountNumber)
                 break
-    custom = Customer(username, password, age, city, accountNumber)
-    custom.createUser()
+    customobj = Customer(username, password, age, city, accountNumber)
+    customobj.createUser()
+    bankobj = Bank(username, accountNumber)
+    bankobj.createTransactionTable()
 
 def signin():
     username = input("enter username: ")
@@ -30,7 +35,7 @@ def signin():
         while True:
             password = input("enter password: ")
             check = query(f"SELECT password FROM customers WHERE username = '{username}';")
-            if check and check[0][0] == password:
+            if check[0][0] == password:
                 print("logged in successfully!")
                 break
             else:
