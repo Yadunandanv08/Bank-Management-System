@@ -1,7 +1,7 @@
-from database import *
+from backend.database import *
 import random
-from customer import *
-from bank import Bank
+from backend.customer import *
+from backend.bank import Bank
 
 createCustomerTable()
 
@@ -21,7 +21,7 @@ def signup():
             if temp:
                 continue
             else:
-                print(accountNumber)
+                print("Your Account Number: ",accountNumber)
                 break
     customobj = Customer(username, password, age, city, accountNumber)
     customobj.createUser()
@@ -37,6 +37,7 @@ def signin():
             check = query(f"SELECT password FROM customers WHERE username = '{username}';")
             if check[0][0] == password:
                 print("logged in successfully!")
+                return username
                 break
             else:
                 print("wrong password!")

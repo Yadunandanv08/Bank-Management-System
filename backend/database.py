@@ -23,6 +23,7 @@ def createCustomerTable():
             age INTEGER,
             city VARCHAR(20),
             accountNumber INTEGER PRIMARY KEY,
+            balance INTEGER NOT NULL,
             status TINYINT(1)
         )
     ''')

@@ -1,5 +1,5 @@
 #customer details
-from database import *
+from backend.database import *
 
 class Customer:
     def __init__(self, username, password, age, city, accountNumber):
@@ -12,10 +12,10 @@ class Customer:
     def createUser(self):
         try:
             query = '''
-                INSERT INTO customers (username, password, age, city, accountNumber, status) 
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO customers (username, password, age, city, accountNumber, balance, status) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             '''
-            values = (self.__username, self.__password, self.__age, self.__city, self.__accountNumber, 1)
+            values = (self.__username, self.__password, self.__age, self.__city, self.__accountNumber, 0, 1)
             cursor.execute(query, values)
             mydb.commit()
         except Exception as e:
