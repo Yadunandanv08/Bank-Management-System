@@ -1,5 +1,5 @@
 #customer details
-from backend.database import *
+from database import *
 
 class Customer:
     def __init__(self, username, password, age, city, accountNumber):

@@ -1,4 +1,4 @@
-from backend.database import *
+from database import *
 import datetime
 
 class Bank:
@@ -11,8 +11,8 @@ class Bank:
         query(f"CREATE TABLE IF NOT EXISTS {sanitized_username}_Transactions"
               f"(time VARCHAR(40),"
               f"type VARCHAR(100),"
-              f"to_acc VARCHAR(20),"
-              f"from_acc VARCHAR(20),"
+              f"to_acc VARCHAR(100),"
+              f"from_acc VARCHAR(100),"
               f"accountNumber INTEGER,"
               f"amount INTEGER)")
 
@@ -69,6 +69,9 @@ class Bank:
             self.checkBalance()
             
             sanitized_username = self.__username.replace(" ", "_")
+            recieverUsername = recieverUsername[0][0]
+            sanitized_reciever = recieverUsername.replace(" ", "_")
+        
             # Prepare type strings
             type1 = f'Fund Transfer to {reciever}'
             type2 = f'Fund Transfer from {self.__accountNumber}'
@@ -89,7 +92,7 @@ class Bank:
                 f"'{self.__accountNumber}',"
                 f"'{amount}'"
                 f")")
-            query(f"INSERT INTO {recieverUsername[0][0]}_Transactions VALUES ("
+            query(f"INSERT INTO {sanitized_reciever}_Transactions VALUES ("
                 f"'{datetime.datetime.now()}',"
                 f"'{type2}',"
                 f"'Self',"

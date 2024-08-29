@@ -1,5 +1,5 @@
-from backend.register import *
-from backend.bank import *
+from register import *
+from bank import *
 
 status = False
 

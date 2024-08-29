@@ -1,7 +1,7 @@
-from backend.database import *
+from database import *
 import random
-from backend.customer import *
-from backend.bank import Bank
+from customer import *
+from bank import Bank
 
 createCustomerTable()
 
