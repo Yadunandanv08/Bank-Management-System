@@ -1,71 +1,104 @@
-from register import *
-from bank import *
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from register import signin, signup  
+from bank import *  
 
-status = False
+app = Flask(__name__)
+CORS(app)
 
-while True:
+@app.route('/signup', methods=['POST'])
+def signup_route():
     try:
-        reg = int(input("1.Sign Up\n"
-                        "2.Sign In\n"))
-        if reg == 1:
-            signup()
-        elif reg == 2:
-            user = signin()
-            status = True
-            break
+        data = request.get_json()  # Get data from the request body
+        username = data['username']
+        password = data['password']
+        age = data['age']
+        city = data['city']
+        
+        signup(username, password, age, city)
+        return jsonify({"message": "Signup successful!"}), 201
 
-    except ValueError:
-        print("invalid input")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-accountNumber = query(f"SELECT accountNumber FROM customers WHERE username = '{user}';")
-
-
-while status:
+@app.route('/signin', methods=['GET', 'POST'])
+def signin_route():
     try:
-        service = int(input("1.Check Balance\n"
-                            "2.Deposit\n"
-                            "3.Withdrawal\n"
-                            "4.Fund Transfer\n"))
-        if service == 1:
-            bobj = Bank(user, accountNumber)
-            bobj.checkBalance()
+        data = request.get_json()
+        username = data['username']
+        password = data['password']
+        
+        user = signin(username, password)
+        if user:
+            # Get account number after sign in
+            accountNumber = query(f"SELECT accountNumber FROM customers WHERE username = '{username}';")
+            return jsonify({"message": "Signin successful", "accountNumber": accountNumber[0][0]}), 200
+        else:
+            return jsonify({"error": "Invalid username or password"}), 401
 
-        elif service == 2:
-            while True:
-                try:
-                    amount = int(input("Enter Amount: "))
-                    bobj = Bank(user, accountNumber[0][0])
-                    bobj.deposit(amount)
-                    mydb.commit()
-                    break
-                except ValueError:
-                    print("Enter Valid Account Number: ")
-                    continue
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-        elif service == 3:
-            while True:
-                try:
-                    amount = int(input("Enter Amount: "))
-                    bobj = Bank(user, accountNumber[0][0])
-                    bobj.withdraw(amount)
-                    mydb.commit()
-                    break
-                except ValueError:
-                    print("Enter Valid Account Number: ")
-                    continue
-           
-        elif service == 4:
-            while True:
-                try:
-                    reciever = int(input("Enter Reciever Account Number: "))
-                    amount = int(input("Enter Amount: "))
-                    bobj = Bank(user, accountNumber[0][0])
-                    bobj.transfer(amount, reciever)
-                    mydb.commit()
-                    break
-                except ValueError:
-                    print("Enter Valid Account Number: ")
-                    continue
+@app.route('/check_balance', methods=['GET', 'POST'])
+def check_balance():
+    try:
+        data = request.get_json()
+        username = data['username']
+        accountNumber = data['accountNumber']
+        
+        bobj = Bank(username, accountNumber)
+        balance = bobj.checkBalance()
+        
+        return jsonify({"balance": balance}), 200
 
-    except ValueError:
-        print("invalid input")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/deposit', methods=['GET', 'POST'])
+def deposit():
+    try:
+        data = request.get_json()
+        username = data['username']
+        accountNumber = data['accountNumber']
+        amount = int(data['amount'])
+        
+        bobj = Bank(username, accountNumber)
+        bobj.deposit(amount)
+        return jsonify({"message": "Deposit successful"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/withdraw', methods=['GET', 'POST'])
+def withdraw():
+    try:
+        data = request.get_json()
+        username = data['username']
+        accountNumber = data['accountNumber']
+        amount = int(data['amount'])
+        
+        bobj = Bank(username, accountNumber)
+        bobj.withdraw(amount)
+        return jsonify({"message": "Withdrawal successful"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/transfer', methods=['GET', 'POST'])
+def transfer():
+    try:
+        data = request.get_json()
+        username = data['username']
+        accountNumber = data['accountNumber']
+        receiver_account = data['receiver_account']
+        amount = int(data['amount'])
+        
+        bobj = Bank(username, accountNumber)
+        bobj.transfer(amount, receiver_account)
+        return jsonify({"message": "Transfer successful"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)

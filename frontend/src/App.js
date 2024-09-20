@@ -1,29 +1,14 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom'; 
+import BankLandingPage from './landingPage';
 
 function App() {
-  const[data, setData] = useState([{}])
-
-  useEffect(()=>{
-    fetch("/members").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
+  const [data, setData] = useState([{}]);
   return (
-    <div>
-        {typeof data.members === "undefined" ? (
-        <p>loading...</p>
-      ) : (
-        data.members.map((member, i) => (
-          <p key={i}>{member}</p>
-        ))
-      )}
-    </div>
-  )
+    <BrowserRouter>
+      <BankLandingPage />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
