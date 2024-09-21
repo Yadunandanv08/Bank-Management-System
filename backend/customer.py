@@ -1,6 +1,7 @@
 #customer details
 from database import *
 
+# Defining customer class for creating customer object.
 class Customer:
     def __init__(self, username, password, age, city, accountNumber):
         self.__username = username
@@ -9,7 +10,8 @@ class Customer:
         self.__city = city
         self.__accountNumber = accountNumber
 
-    def createUser(self):
+    # CreateUser function which updates the customers table when new user object is created.
+    def createUser(self): 
         try:
             query = '''
                 INSERT INTO customers (username, password, age, city, accountNumber, balance, status) 

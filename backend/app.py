@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify # import for flask app
 from flask_cors import CORS
 from register import signin, signup  
 from bank import *  
@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/signup', methods=['POST'])
-def signup_route():
+def signup_route(): # doesnot currently return new account number or create new transaction table, but customer table is being updated.
     try:
         data = request.get_json()  # Get data from the request body
         username = data['username']
@@ -20,6 +20,8 @@ def signup_route():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+# functions below have not been integrated to the frontend. (might encounter errors if executed)
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin_route():
