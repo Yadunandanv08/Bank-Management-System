@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/signup', methods=['POST'])
-def signup_route(): # doesnot currently return new account number or create new transaction table, but customer table is being updated.
+def signup_route(): 
     try:
         data = request.get_json()  # Get data from the request body
         username = data['username']
@@ -15,15 +15,26 @@ def signup_route(): # doesnot currently return new account number or create new 
         age = data['age']
         city = data['city']
         
-        signup(username, password, age, city)
-        return jsonify({"message": "Signup successful!"}), 201
+        # Call the signup function
+        account_number, message = signup(username, password, age, city)
+        
+        if account_number is None:
+            # If the account number is None, it means the username already exists
+            return jsonify({"error": message}), 400
+        
+        # If successful, return the account number
+        return jsonify({
+            "message": message,
+            "account_number": account_number
+        }), 201
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
     
 # functions below have not been integrated to the frontend. (might encounter errors if executed)
 
-@app.route('/signin', methods=['GET', 'POST'])
+@app.route('/signin', methods=['POST'])
 def signin_route():
     try:
         data = request.get_json()

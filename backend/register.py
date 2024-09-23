@@ -8,27 +8,30 @@ createCustomerTable()
 
 # signUp function for registering new user.
 def signup(username, password, age, city):
-    # temp checks if new registering username already exists in the database.
+    # Check if the username already exists in the database.
     temp = query(f"SELECT username FROM customers WHERE username='{username}';")
     if temp:
-        print("Username already exists")
-    else:
-        while True:
-            accountNumber = int(random.randint(100000000, 999999999))  #generates a random 9 digit account number.
-            temp = query(f"SELECT accountNumber FROM customers WHERE accountNumber='{accountNumber}';") # temp to check if accountNumber is uneque
-            if temp:
-                continue
-            else:
-                print("Your Account Number: ", accountNumber)
-                break
+        # Return a specific message if the username exists
+        return None, "Username already exists"
+    
+    # Generate a unique account number
+    while True:
+        accountNumber = random.randint(100000000, 999999999)  # Generates a random 9-digit account number
+        temp = query(f"SELECT accountNumber FROM customers WHERE accountNumber='{accountNumber}';")  # Check if accountNumber is unique
+        if not temp:
+            print("Your Account Number: ", accountNumber)
+            break
 
-        # new customer object and user
-        customobj = Customer(username, password, age, city, accountNumber)
-        customobj.createUser()
-        
-        # new bank object and transaction table
-        bankobj = Bank(username, accountNumber)
-        bankobj.createTransactionTable() # To create new transaction table for new user(every user has a transaction table for sting all his transactions). 
+    # Create new customer object and user
+    customobj = Customer(username, password, age, city, accountNumber)
+    customobj.createUser()
+    
+    # Create a new bank object and transaction table
+    bankobj = Bank(username, accountNumber)
+    bankobj.createTransactionTable()  # Create new transaction table for the new user
+
+    # Return the new account number and a success message
+    return accountNumber, "Signup successful!"
 
 
 # signIn function for existing user.

@@ -10,6 +10,9 @@ const BankLandingPage = () => {
   const [age, setAge] = useState('');
   const [city, setCity] = useState('');
   const [loading, setLoading] = useState(false);
+  const [signupMessage, setSignupMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const navigate = useNavigate(); 
 
   const handleSignInClick = () => {
@@ -44,6 +47,8 @@ const BankLandingPage = () => {
   
   const handleSignUpSubmit = async () => {
     setLoading(true);
+    setSignupMessage(''); // Clear previous messages
+    setErrorMessage('');
     try {
       const response = await axios.post('http://127.0.0.1:5000/signup', {
         username,
@@ -55,22 +60,27 @@ const BankLandingPage = () => {
           'Content-Type': 'application/json'
         }
       });
-      alert('Sign Up successful!');
+
+      setSignupMessage(`Sign Up successful! Your Account Number is: ${response.data.account_number}`);
       console.log(response.data);
       navigate('/dashboard'); // Redirect to dashboard on success
     } catch (error) {
-      alert('Sign Up failed!');
+      if (error.response) {
+        setErrorMessage(error.response.data.error); // Show the error message from the server
+      } else {
+        setErrorMessage('Sign Up failed! Please try again.');
+      }
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="landing-page">
       <header className="landing-header">
         <nav className="navbar">
-          <h1 className="logo">MyBank</h1>
+          <h1 className="logo">CSB Bank</h1>
           <ul className="nav-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#about">About Us</a></li>
@@ -108,51 +118,14 @@ const BankLandingPage = () => {
           <button onClick={handleSignUpSubmit} disabled={loading}>
             {loading ? 'Signing Up...' : 'Submit'}
           </button>
+
+          {/* Render success and error messages */}
+          {signupMessage && <div className="success-message">{signupMessage}</div>}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
         </div>
       )}
-
-      <section id="features" className="features-section">
-        <h3>Our Features</h3>
-        <div className="features-grid">
-          <div className="feature">
-            <h4>Online Banking</h4>
-            <p>Access your account from any device, 24/7.</p>
-          </div>
-          <div className="feature">
-            <h4>Secure Transactions</h4>
-            <p>We use industry-standard encryption to keep your data safe.</p>
-          </div>
-          <div className="feature">
-            <h4>Easy Transfers</h4>
-            <p>Transfer money between accounts with just a few clicks.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="about-section">
-        <h3>About Us</h3>
-        <p>We are committed to providing the best banking experience with our modern and secure solutions.</p>
-      </section>
-
-      <section id="testimonials" className="testimonials-section">
-        <h3>What Our Customers Say</h3>
-        <div className="testimonials-grid">
-          <div className="testimonial">
-            <p>"MyBank has revolutionized the way I manage my finances."</p>
-            <p>- Jane Doe</p>
-          </div>
-          <div className="testimonial">
-            <p>"Fast, reliable, and secure banking!"</p>
-            <p>- John Smith</p>
-          </div>
-        </div>
-      </section>
-
-      <footer className="landing-footer">
-        <p>&copy; 2024 MyBank. All rights reserved.</p>
-      </footer>
     </div>
   );
-}
+};
 
 export default BankLandingPage;
