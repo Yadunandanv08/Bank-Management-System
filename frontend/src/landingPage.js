@@ -34,11 +34,21 @@ const BankLandingPage = () => {
           'Content-Type': 'application/json'
         }
       });
-      alert('Sign In successful!');
-      console.log(response.data);
-      navigate('/dashboard'); // Redirect to dashboard on success
+  
+      const { status } = response.data;
+  
+      if (status === 'success') {
+        alert('Sign In successful!');
+        navigate('/dashboard'); // Redirect to dashboard on success
+      } 
+      else if (status === 'wrong_password') {
+        alert('Incorrect password. Please try again.');
+      } 
+      else if (status === 'invalid_username') {
+        alert('Invalid username. Please try again.');
+      }
     } catch (error) {
-      alert('Sign In failed!');
+      alert('Sign In failed due to a server error!');
       console.error(error);
     } finally {
       setLoading(false);
@@ -67,7 +77,8 @@ const BankLandingPage = () => {
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error); // Show the error message from the server
-      } else {
+      } 
+      else {
         setErrorMessage('Sign Up failed! Please try again.');
       }
       console.error(error);
