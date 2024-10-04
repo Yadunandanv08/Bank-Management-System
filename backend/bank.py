@@ -4,15 +4,15 @@ from database import *
 import datetime        # import datetime to update transaction time for each transaction of user.
 import mysql.connector
 
-def get_db_connection():
+# new get connection function to ensure commits for deposit function
+def get_db_connection(): 
     return mysql.connector.connect(
-        host='localhost',        # Database host
-        user='root',             # Database user
-        password='yadu',         # Database password
-        database='Bank',         # Database name
-        autocommit=False         # Ensure autocommit is disabled so you can manually commit transactions
+        host='localhost',        
+        user='root',             
+        password='yadu',         
+        database='Bank',         
+        autocommit=False         
     )
-
 
 
 class Bank:

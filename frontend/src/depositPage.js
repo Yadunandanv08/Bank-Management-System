@@ -24,7 +24,7 @@ const DepositPage = () => {
   
       if (response.status === 200) {
         setMessage('Deposit successful!');
-        setBalance(response.data.updated_balance); // Set updated balance
+        setBalance(response.data.updated_balance); // Set updated balance(current set balance doesnot give accurate balance and prints the previous balance!)
         setAmount(''); // Clear the input field after a successful deposit
       }
     } catch (error) {
