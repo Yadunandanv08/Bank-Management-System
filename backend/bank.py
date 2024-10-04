@@ -2,6 +2,18 @@
 
 from database import *
 import datetime        # import datetime to update transaction time for each transaction of user.
+import mysql.connector
+
+def get_db_connection():
+    return mysql.connector.connect(
+        host='localhost',        # Database host
+        user='root',             # Database user
+        password='yadu',         # Database password
+        database='Bank',         # Database name
+        autocommit=False         # Ensure autocommit is disabled so you can manually commit transactions
+    )
+
+
 
 class Bank:
     def __init__(self, username, accountNumber):
@@ -22,25 +34,53 @@ class Bank:
     # function to check balance
     def checkBalance(self):
         temp = query(f"SELECT balance FROM customers WHERE username = '{self.__username}';")
-        print(f"{self.__username} Balance is {temp[0][0]}") # temp[0][0] is used because the query returns a tuple and only a the single element is needed.
-    
-    # function to deposit money into account
+        if temp:
+            return temp[0][0] 
+        else:
+            return None 
+        
+
     def deposit(self, amount):
-        temp = query(f"SELECT balance FROM customers WHERE username = '{self.__username}';") # retrieve current balance
-        newbal = amount + temp[0][0] # update new balance
-        query(f"UPDATE customers SET balance = '{newbal}' WHERE username = '{self.__username}';")
-        self.checkBalance() # to display new balance
-        sanitized_username = self.__username.replace(" ", "_") # to get name of transaction table. 
-        # update transaction table.
-        query(f"INSERT INTO {sanitized_username}_Transactions VALUES ("
-              f"'{datetime.datetime.now()}',"
-              f"'Deposit',"
-              f"'NULL',"
-              f"'NULL',"
-              f"'{self.__accountNumber}',"
-              f"'{amount}'"
-              f")")
-        print("Deposit Successfull!\n")
+        connection = get_db_connection()  # Get connection to the database
+        cursor = connection.cursor()
+
+        try:
+            # Retrieve current balance
+            cursor.execute(f"SELECT balance FROM customers WHERE username = %s;", (self.__username,))
+            temp = cursor.fetchone()
+
+            if temp is None:
+                raise ValueError("User not found")
+
+            # Update balance
+            newbal = amount + temp[0]
+            cursor.execute(f"UPDATE customers SET balance = %s WHERE username = %s;", (newbal, self.__username))
+
+            # Commit the changes to the database
+            connection.commit()
+
+            # Display updated balance
+            print(f"{self.__username} Balance is {newbal}")
+
+            # Update transaction table
+            sanitized_username = self.__username.replace(" ", "_")  # For transaction table name
+            cursor.execute(f"INSERT INTO {sanitized_username}_Transactions (time, type, to_acc, from_acc, accountNumber, amount) "
+                        f"VALUES (%s, 'Deposit', 'NULL', 'NULL', %s, %s);",
+                        (datetime.datetime.now(), self.__accountNumber, amount))
+
+            # Commit transaction record
+            connection.commit()
+
+            print("Deposit Successful!\n")
+
+        except Exception as e:
+            connection.rollback()  # Roll back any changes in case of an error
+            print(f"Error during deposit: {e}")
+
+        finally:
+            cursor.close()  # Close cursor
+            connection.close()  # Close connection
+
         
     # function to withdraw money
     def withdraw(self, amount):

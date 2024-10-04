@@ -31,9 +31,6 @@ def signup_route():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-    
-# functions below have not been integrated to the frontend. (might encounter errors if executed)
-
 @app.route('/signin', methods=['POST'])
 def signin_route():
     try:
@@ -41,43 +38,86 @@ def signin_route():
         username = data['username']
         password = data['password']
         
-        user = signin(username, password)
-        if user:
-            # Get account number after sign in
+        # Call to signin function to verify user credentials
+        result = signin(username, password)  # Use the result from signin
+        
+        if result['status'] == 'success':
+            # Get account number after successful sign in
             accountNumber = query(f"SELECT accountNumber FROM customers WHERE username = '{username}';")
             return jsonify({"message": "Signin successful", "accountNumber": accountNumber[0][0]}), 200
-        else:
-            return jsonify({"error": "Invalid username or password"}), 401
+        
+        elif result['status'] == 'wrong_password':
+            return jsonify({"error": "Wrong password"}), 401
+        
+        elif result['status'] == 'invalid_username':
+            return jsonify({"error": "Invalid username"}), 401
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/check_balance', methods=['GET', 'POST'])
-def check_balance():
+
+@app.route('/customer_details', methods=['GET'])
+def get_customer_details():
     try:
-        data = request.get_json()
-        username = data['username']
-        accountNumber = data['accountNumber']
+        username = request.args.get('username')  
+        account_number = request.args.get('accountNumber')  
         
-        bobj = Bank(username, accountNumber)
-        balance = bobj.checkBalance()
+        if not username or not account_number:
+            return jsonify({"error": "Username and account number are required"}), 400
+
+        # Query to get customer details
+        customer = query(f"SELECT * FROM customers WHERE username = '{username}' AND accountNumber = '{account_number}';")
         
-        return jsonify({"balance": balance}), 200
+        if customer:
+            customer_data = {
+                "name": customer[0][0],  
+                "accountNumber": customer[0][4],  
+                "balance": customer[0][4]  
+            }
+            return jsonify(customer_data), 200
+        else:
+            return jsonify({"error": "Customer not found"}), 404
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        print(f"Error occurred: {e}")  
+        return jsonify({"error": "An error occurred while fetching customer details."}), 500
 
-@app.route('/deposit', methods=['GET', 'POST'])
+# functions below have not been integrated to the frontend. (might encounter errors if executed)
+
+@app.route('/deposit', methods=['POST'])
 def deposit():
     try:
+        # Parse JSON data
         data = request.get_json()
+
+        # Validate required fields
+        if 'username' not in data or 'accountNumber' not in data or 'amount' not in data:
+            return jsonify({"error": "Missing required data"}), 400
+        
         username = data['username']
         accountNumber = data['accountNumber']
-        amount = int(data['amount'])
-        
+
+        # Ensure amount is a valid integer
+        try:
+            amount = int(data['amount'])
+            if amount <= 0:
+                return jsonify({"error": "Deposit amount must be greater than zero"}), 400
+        except ValueError:
+            return jsonify({"error": "Invalid amount provided"}), 400
+
+        # Perform deposit operation
         bobj = Bank(username, accountNumber)
         bobj.deposit(amount)
-        return jsonify({"message": "Deposit successful"}), 200
+
+        # Retrieve and return updated balance
+        updated_balance = bobj.checkBalance()  # This will now return the current balance
+        if updated_balance is not None:
+            return jsonify({
+                "message": "Deposit successful",
+                "updated_balance": updated_balance
+            }), 200
+        else:
+            return jsonify({"error": "User not found"}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
