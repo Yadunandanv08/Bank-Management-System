@@ -1,9 +1,9 @@
-.withdrawHeader {
+.WithdrawHeader {
     color: #333;
     text-align: center;
 }
 
-.withdrawContent {
+.WithdrawContent {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -12,7 +12,7 @@
     margin: 0 auto; 
 }
 
-.withdrawLabel {
+.WithdrawLabel {
     display: block;
     margin-bottom: 3%; 
     font-weight: bold;
@@ -27,7 +27,7 @@ input[type="number"] {
     font-size: 16px;
 }
 
-.withdrawButton {
+.WithdrawButton {
     background-color: #007bff;
     color: white;
     border: none;
@@ -38,7 +38,7 @@ input[type="number"] {
     width: 100%; 
 }
 
-.withdrawButton:disabled {
+.WithdrawButton:disabled {
     background-color: #ccc;
 }
 
