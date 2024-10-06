@@ -1,0 +1,44 @@
+.check-balance-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 5%;
+    border: 1% solid #ccc;
+    border-radius: 1%;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 5%;
+}
+
+.input-field {
+    width: 100%;
+    padding: 2.5%;
+    border: 1% solid #ccc;
+    border-radius: 1%;
+}
+
+.check-balance-button {
+    padding: 2.5%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+.check-balance-button:hover {
+    background-color: #0056b3;
+}
+
+.balance-result {
+    margin-top: 5%;
+    text-align: center;
+    color: green;
+}
+
+.error-message {
+    margin-top: 5%;
+    text-align: center;
+    color: red;
+}

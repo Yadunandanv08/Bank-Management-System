@@ -184,6 +184,28 @@ def transfer():
         app.logger.error(f"Error during transfer: {str(e)}")  
         return jsonify({"error": "An error occurred during the transfer"}), 500
 
+@app.route('/balance', methods=['POST'])
+def check_balance():
+    data = request.json
+    username = data['username']
+    password = data['password']
+
+    if not username or not password:
+        return jsonify({'error': 'Username and password are required'}), 400
+
+    user_exists = query(f"SELECT * FROM customers WHERE username = '{username}' AND password = '{password}';")
+
+    if not user_exists:
+        return jsonify({'error': 'Invalid username or password'}), 403
+
+    # Fetch balance
+    balance = query(f"SELECT balance FROM customers WHERE username = '{username}';")
+    if balance:
+        return jsonify({'balance': balance[0][0]}), 200
+    else:
+        return jsonify({'error': 'Balance not found'}), 404
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
