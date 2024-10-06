@@ -52,7 +52,7 @@ const WithdrawPage = () => {
           onChange={(e) => setAmount(e.target.value)}
           min="1" // Ensure the amount is always positive
         />
-        <label>Password</label>
+        <label className='WithdrawLabel'>Password</label>
                 <input 
                     type="password" 
                     value={password} 
