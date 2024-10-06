@@ -123,7 +123,7 @@ const BankLandingPage = () => {
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
           />
-          <button onClick={handleSignInSubmit} disabled={loading}>
+          <button className='signInSubmitButton' onClick={handleSignInSubmit} disabled={loading}>
             {loading ? 'Signing In...' : 'Submit'}
           </button>
 
@@ -158,7 +158,7 @@ const BankLandingPage = () => {
             value={city} 
             onChange={(e) => setCity(e.target.value)} 
           />
-          <button onClick={handleSignUpSubmit} disabled={loading}>
+          <button className='signUpInSubmitButton' onClick={handleSignUpSubmit} disabled={loading}>
             {loading ? 'Signing Up...' : 'Submit'}
           </button>
 

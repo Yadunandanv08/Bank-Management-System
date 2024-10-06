@@ -30,9 +30,9 @@ const CheckBalance = () => {
 
     return (
         <div className="check-balance-container">
-            <h2>Check Balance</h2>
+            <h2 className='checkBalanceHeader'>Check Balance</h2>
             <div className="form-group">
-                <label>Password</label>
+                <label className='checkBalanceLabel'>Password</label>
                 <input 
                     type="password" 
                     value={password} 
@@ -46,7 +46,7 @@ const CheckBalance = () => {
 
             {balance !== null && (
                 <div className="balance-result">
-                    <h3>Your Balance: ${balance}</h3>
+                    <h3>Your Balance: Rs.{balance}</h3>
                 </div>
             )}
             {error && (

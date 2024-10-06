@@ -18,7 +18,7 @@ body {
 .sidebar {
   width: 25%;
   height: 100%;
-  background-color: #007bff;
+  background-color:  #021e44;
   color: white;
   position: fixed;
   left: -25%;
@@ -31,6 +31,9 @@ body {
 
 .sidebar.open {
   left: 0;
+  padding: 0;
+  padding-top: 7%;
+  text-align: center;
 }
 
 .sidebar h2 {
@@ -39,16 +42,16 @@ body {
 }
 
 .action-btn {
-  background-color: white;
-  color: #007bff;
-  padding: 3% 5%;
-  border: none;
-  border-radius: 5px;
+  background-color:  #021e44;
+  color: #92a7be;
+  padding: 7% 5%;
   font-size: 1.5rem;
   cursor: pointer;
-  margin-bottom: 5%;
   text-align: left;
   width: 100%;
+  border-bottom-color: #066fcb;
+  border-top-color: #066fcb;
+  border-left-color: #021e44;
 }
 
 .action-btn:hover {
@@ -58,7 +61,7 @@ body {
 
 .sidebar-toggle {
   font-size: 2.5rem;
-  color: #007bff;
+  color: #92a7be;
   background: none;
   border: none;
   position: fixed;
@@ -103,7 +106,7 @@ body {
 
 .profile-details h1 {
   font-size: 2rem;
-  color: #007bff;
+  color: #04284e;
   margin-bottom: 3%;
 }
 
