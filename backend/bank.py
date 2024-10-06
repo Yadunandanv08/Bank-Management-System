@@ -9,7 +9,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host='localhost',        
         user='root',             
-        password='yadu',         
+        password='vinay2004',         
         database='Bank',         
         autocommit=False         
     )
@@ -91,6 +91,7 @@ class Bank:
         else:
             newbal = temp[0][0] - amount
             query(f"UPDATE customers SET balance = '{newbal}' WHERE username = '{self.__username}';")
+            mydb.commit()
             self.checkBalance()
             sanitized_username = self.__username.replace(" ", "_")
             # update transaction table.
@@ -102,6 +103,8 @@ class Bank:
                 f"'{self.__accountNumber}',"
                 f"'{amount}'"
                 f")")
+            mydb.commit()
+            
             print("Withdrawal Successfull!\n")
 
     # function to transfer funds.

@@ -128,7 +128,14 @@ def withdraw():
         username = data['username']
         accountNumber = data['accountNumber']
         amount = int(data['amount'])
+        password = data['password']
         
+        user_data = query(f"SELECT password, balance, accountNumber FROM customers WHERE username = '{username}';")
+        
+        # Validate username and password
+        if not user_data or user_data[0][0] != password:    # if user doesnt exist or wrong password
+            return jsonify({"error": "Invalid username or password"}), 401
+
         bobj = Bank(username, accountNumber)
         bobj.withdraw(amount)
         return jsonify({"message": "Withdrawal successful"}), 200
