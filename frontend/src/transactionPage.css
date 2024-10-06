@@ -1,15 +1,16 @@
 .fund-transfer-container {
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
     padding: 5%;
     border: 1% solid #ccc;
-    border-radius: 1%;
-    background-color: #f9f9f9;
+    /* border-radius: 1%;   */
+    background-color: #010c1b;
 }
 
 .fund-transfer-header {
     text-align: center;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
+    color: #fff;
 }
 
 .fund-transfer-form {
@@ -18,25 +19,26 @@
 }
 
 .fund-transfer-input-group {
-    margin-bottom: 4%;
+    margin-bottom: 1%;
 }
 
 .fund-transfer-label {
     margin-bottom: 1%;
+    color: white;
 }
 
 .fund-transfer-input {
-    padding: 2.5%;
+    padding: 1.5%;
     border: 1% solid #ccc;
-    border-radius: 1%;
+    border-radius: 25px;
 }
 
 .fund-transfer-button {
     padding: 2.5%;
-    background-color: #007bff;
+    background-color: #007bff53;
     color: white;
     border: none;
-    border-radius: 1%;
+    border-radius: 50px;    
     cursor: pointer;
 }
 
