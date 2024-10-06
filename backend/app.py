@@ -87,10 +87,9 @@ def get_customer_details():
 @app.route('/deposit', methods=['POST'])
 def deposit():
     try:
-        # Parse JSON data
         data = request.get_json()
 
-        # Validate required fields
+        # check if data has been entered into the required sections
         if 'username' not in data or 'accountNumber' not in data or 'amount' not in data:
             return jsonify({"error": "Missing required data"}), 400
         
@@ -110,7 +109,7 @@ def deposit():
         bobj.deposit(amount)
 
         # Retrieve and return updated balance
-        updated_balance = bobj.checkBalance()  # This will now return the current balance
+        updated_balance = bobj.checkBalance()  # return the current balance
         if updated_balance is not None:
             return jsonify({
                 "message": "Deposit successful",
@@ -137,21 +136,54 @@ def withdraw():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/transfer', methods=['GET', 'POST'])
+@app.route('/transfer', methods=['POST'])
 def transfer():
     try:
         data = request.get_json()
+
+        # recieve inputs from the fields
         username = data['username']
-        accountNumber = data['accountNumber']
         receiver_account = data['receiver_account']
-        amount = int(data['amount'])
+        amount = data['amount']
+        password = data['password']
+
+        # check if data has been entered into the required sections
+        if not all([username, receiver_account, amount, password]):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        try:
+            amount = int(amount)
+            if amount <= 0:     # verify amount>0
+                return jsonify({"error": "Amount must be a positive number"}), 400
+        except (ValueError, TypeError):
+            return jsonify({"error": "Invalid amount format"}), 400
+
+        # Fetch user data for validation
+        user_data = query(f"SELECT password, balance, accountNumber FROM customers WHERE username = '{username}';")
         
-        bobj = Bank(username, accountNumber)
+        # Validate username and password
+        if not user_data or user_data[0][0] != password:    # if user doesnt exist or wrong password
+            return jsonify({"error": "Invalid username or password"}), 401
+
+        balance = user_data[0][1]
+        if amount > balance:    # check if transfer amount > balance
+            return jsonify({"error": "Insufficient balance"}), 400
+
+        # Check receiver account
+        receiver_data = query(f"SELECT balance FROM customers WHERE accountNumber = '{receiver_account}';")
+        if not receiver_data:
+            return jsonify({"error": "Receiver account not found"}), 404
+
+        # Initialize Bank object and perform transfer
+        bobj = Bank(username, user_data[0][2])  
         bobj.transfer(amount, receiver_account)
+
         return jsonify({"message": "Transfer successful"}), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        app.logger.error(f"Error during transfer: {str(e)}")  
+        return jsonify({"error": "An error occurred during the transfer"}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)

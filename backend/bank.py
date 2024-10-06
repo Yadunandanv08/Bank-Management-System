@@ -105,25 +105,27 @@ class Bank:
             print("Withdrawal Successfull!\n")
 
     # function to transfer funds.
-    def transfer(self, amount, reciever):
+    def transfer(self, amount, receiver):
         temp = query(f"SELECT balance FROM customers WHERE username = '{self.__username}';")
         if amount > temp[0][0]:
             print("Insufficient Balance")
         else:
-            temp2 = query(f"SELECT balance FROM customers WHERE accountNumber = '{reciever}';")
+            temp2 = query(f"SELECT balance FROM customers WHERE accountNumber = '{receiver}';")
             newbal1 = temp[0][0] - amount
             newbal2 = temp2[0][0] + amount
             query(f"UPDATE customers SET balance = '{newbal1}' WHERE username = '{self.__username}';") # update balance of sender.
-            query(f"UPDATE customers SET balance = '{newbal2}' WHERE accountNumber = '{reciever}';")   # update balance of reciever.
-            recieverUsername = query(f"SELECT username FROM customers WHERE accountNumber = '{reciever}';")
+            mydb.commit()
+            query(f"UPDATE customers SET balance = '{newbal2}' WHERE accountNumber = '{receiver}';")   # update balance of reciever.
+            mydb.commit()
+            receiverUsername = query(f"SELECT username FROM customers WHERE accountNumber = '{receiver}';")
             self.checkBalance()
             
             sanitized_username = self.__username.replace(" ", "_")
-            recieverUsername = recieverUsername[0][0]
-            sanitized_reciever = recieverUsername.replace(" ", "_")
+            receiverUsername = receiverUsername[0][0]
+            sanitized_receiver = receiverUsername.replace(" ", "_")
         
             # Prepare type strings
-            type1 = f'Fund Transfer to {reciever}'
+            type1 = f'Fund Transfer to {receiver}'
             type2 = f'Fund Transfer from {self.__accountNumber}'
             
             # Define maximum length based on your column definition
@@ -137,13 +139,14 @@ class Bank:
             query(f"INSERT INTO {sanitized_username}_Transactions VALUES ("
                 f"'{datetime.datetime.now()}',"
                 f"'{type1}',"
-                f"'{reciever}',"
+                f"'{receiver}',"
                 f"'Self',"
                 f"'{self.__accountNumber}',"
                 f"'{amount}'"
                 f")")
+            mydb.commit()
             # Insert transaction records to reciever transaction table.
-            query(f"INSERT INTO {sanitized_reciever}_Transactions VALUES ("
+            query(f"INSERT INTO {sanitized_receiver}_Transactions VALUES ("
                 f"'{datetime.datetime.now()}',"
                 f"'{type2}',"
                 f"'Self',"
@@ -151,6 +154,5 @@ class Bank:
                 f"'{self.__accountNumber}',"
                 f"'{amount}'"
                 f")")
+            mydb.commit()
             print("Transaction Successful!\n")
-
-    
