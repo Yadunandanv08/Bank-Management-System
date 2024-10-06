@@ -41,45 +41,40 @@ class Bank:
         
 
     def deposit(self, amount):
-        connection = get_db_connection()  # Get connection to the database
-        cursor = connection.cursor()
+        # connection = get_db_connection()  # Get connection to the database
+        # cursor = connection.cursor()
 
         try:
             # Retrieve current balance
-            cursor.execute(f"SELECT balance FROM customers WHERE username = %s;", (self.__username,))
-            temp = cursor.fetchone()
+            temp = query(f"SELECT balance FROM customers WHERE username = '{self.__username}';")
 
             if temp is None:
                 raise ValueError("User not found")
 
             # Update balance
-            newbal = amount + temp[0]
-            cursor.execute(f"UPDATE customers SET balance = %s WHERE username = %s;", (newbal, self.__username))
+            newbal = amount + temp[0][0]
+            query(f"UPDATE customers SET balance = '{newbal}' WHERE username = '{self.__username}';")
 
             # Commit the changes to the database
-            connection.commit()
+            mydb.commit()
 
             # Display updated balance
             print(f"{self.__username} Balance is {newbal}")
 
             # Update transaction table
             sanitized_username = self.__username.replace(" ", "_")  # For transaction table name
-            cursor.execute(f"INSERT INTO {sanitized_username}_Transactions (time, type, to_acc, from_acc, accountNumber, amount) "
-                        f"VALUES (%s, 'Deposit', 'NULL', 'NULL', %s, %s);",
-                        (datetime.datetime.now(), self.__accountNumber, amount))
+            query(f"INSERT INTO {sanitized_username}_Transactions (time, type, to_acc, from_acc, accountNumber, amount) "
+                        f"VALUES ('{datetime.datetime.now()}', 'Deposit', 'NULL', 'NULL', '{self.__accountNumber}', '{amount}');")
 
             # Commit transaction record
-            connection.commit()
+            mydb.commit()
 
             print("Deposit Successful!\n")
 
         except Exception as e:
-            connection.rollback()  # Roll back any changes in case of an error
             print(f"Error during deposit: {e}")
 
-        finally:
-            cursor.close()  # Close cursor
-            connection.close()  # Close connection
+
 
         
     # function to withdraw money
