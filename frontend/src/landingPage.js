@@ -12,6 +12,7 @@ const BankLandingPage = () => {
   const [loading, setLoading] = useState(false);
   const [signupMessage, setSignupMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [signInMessage, setSignInMessage] = useState('');
 
   const navigate = useNavigate(); 
 
@@ -25,6 +26,7 @@ const BankLandingPage = () => {
 
   const handleSignInSubmit = async () => {
     setLoading(true);
+    setSignInMessage('');
     try {
       const response = await axios.post('http://127.0.0.1:5000/signin', {
         username,
@@ -34,11 +36,22 @@ const BankLandingPage = () => {
           'Content-Type': 'application/json'
         }
       });
-      alert('Sign In successful!');
-      console.log(response.data);
-      navigate('/dashboard'); // Redirect to dashboard on success
+  
+      if (response.status === 200) {
+        const { message, accountNumber } = response.data;
+        setSignInMessage(message);
+  
+        localStorage.setItem('accountNumber', accountNumber);
+        localStorage.setItem('username', username);
+  
+        navigate('/CustomerHomePage');
+      }
     } catch (error) {
-      alert('Sign In failed!');
+      if (error.response && error.response.status === 401) {
+        setSignInMessage('Invalid username or password');
+      } else {
+        setSignInMessage('Sign In failed due to a server error!');
+      }
       console.error(error);
     } finally {
       setLoading(false);
@@ -47,7 +60,7 @@ const BankLandingPage = () => {
   
   const handleSignUpSubmit = async () => {
     setLoading(true);
-    setSignupMessage(''); // Clear previous messages
+    setSignupMessage(''); 
     setErrorMessage('');
     try {
       const response = await axios.post('http://127.0.0.1:5000/signup', {
@@ -62,11 +75,9 @@ const BankLandingPage = () => {
       });
 
       setSignupMessage(`Sign Up successful! Your Account Number is: ${response.data.account_number}`);
-      console.log(response.data);
-      navigate('/dashboard'); // Redirect to dashboard on success
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.error); // Show the error message from the server
+        setErrorMessage(error.response.data.error); 
       } else {
         setErrorMessage('Sign Up failed! Please try again.');
       }
@@ -100,26 +111,57 @@ const BankLandingPage = () => {
       {showForm === 'signin' && (
         <div className="form-section">
           <h3>Sign In</h3>
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input 
+            type="text" 
+            placeholder="Username" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
           <button onClick={handleSignInSubmit} disabled={loading}>
             {loading ? 'Signing In...' : 'Submit'}
           </button>
+
+          {signInMessage && <div className="info-message">{signInMessage}</div>}
         </div>
       )}
 
       {showForm === 'signup' && (
         <div className="form-section">
           <h3>Sign Up</h3>
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
-          <input type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
+          <input 
+            type="text" 
+            placeholder="Username" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+          <input 
+            type="number" 
+            placeholder="Age" 
+            value={age} 
+            onChange={(e) => setAge(e.target.value)} 
+          />
+          <input 
+            type="text" 
+            placeholder="City" 
+            value={city} 
+            onChange={(e) => setCity(e.target.value)} 
+          />
           <button onClick={handleSignUpSubmit} disabled={loading}>
             {loading ? 'Signing Up...' : 'Submit'}
           </button>
 
-          {/* Render success and error messages */}
           {signupMessage && <div className="success-message">{signupMessage}</div>}
           {errorMessage && <div className="error-message">{errorMessage}</div>}
         </div>

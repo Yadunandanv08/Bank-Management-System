@@ -36,16 +36,16 @@ def signup(username, password, age, city):
 
 # signIn function for existing user.
 def signin(username, password):
-    temp = query(f"SELECT username FROM customers WHERE username = '{username}';") # temp to check if user exists
+    temp = query(f"SELECT username FROM customers WHERE username = '{username}';")  # temp to check if user exists
     if temp:
-        while True:
-            check = query(f"SELECT password FROM customers WHERE username = '{username}';") # check to verify password of user
-            if check[0][0] == password:
-                print("logged in successfully!")
-                return username
-                break
-            else:
-                print("wrong password!")
+        check = query(f"SELECT password FROM customers WHERE username = '{username}';")  # check to verify password of user
+        if check[0][0] == password:
+            print("Logged in successfully!")
+            return {"status": "success", "username": username}
+        else:
+            print("Wrong password!")
+            return {"status": "wrong_password"}
     else:
-        print("invalid username")
-        signin(username, password)           
+        print("Invalid username")
+        return {"status": "invalid_username"}
+

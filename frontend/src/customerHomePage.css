@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.customer-home-page {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 25%;
+  height: 100%;
+  background-color: #007bff;
+  color: white;
+  position: fixed;
+  left: -25%;
+  transition: left 0.3s ease;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar h2 {
+  font-size: 2.5rem;
+  margin-bottom: 5%;
+}
+
+.action-btn {
+  background-color: white;
+  color: #007bff;
+  padding: 3% 5%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 5%;
+  text-align: left;
+  width: 100%;
+}
+
+.action-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.sidebar-toggle {
+  font-size: 2.5rem;
+  color: #007bff;
+  background: none;
+  border: none;
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.main-content {
+  margin-left: 25%;
+  flex-grow: 1;
+  padding: 5%;
+  transition: margin-left 0.3s ease;
+}
+
+.shrink {
+  margin-left: 0;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 5%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+  width: 15%;
+  height: auto;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  margin-bottom: 5%;
+}
+
+.profile-details {
+  text-align: center;
+}
+
+.profile-details h1 {
+  font-size: 2rem;
+  color: #007bff;
+  margin-bottom: 3%;
+}
+
+.profile-details p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 2% 5%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-top: 5%;
+}
+
+.logout-button:hover {
+  background-color: #d43f3f;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 2%;
+  }
+
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+
+  .sidebar.open {
+    left: 0;
+    width: 100%;
+  }
+
+  .sidebar-toggle {
+    left: 2%;
+  }
+
+  .profile-container {
+    padding: 2%;
+  }
+
+  .profile-pic {
+    width: 25%;
+  }
+
+  .profile-details h1 {
+    font-size: 1.6rem;
+  }
+
+  .profile-details p {
+    font-size: 1rem;
+  }
+
+  .action-btn {
+    font-size: 1rem;
+    padding: 2% 3%;
+  }
+
+  .logout-button {
+    font-size: 1rem;
+    padding: 1% 3%;
+  }
+}

@@ -1,0 +1,51 @@
+.fund-transfer-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 5%;
+    border: 1% solid #ccc;
+    border-radius: 1%;
+    background-color: #f9f9f9;
+}
+
+.fund-transfer-header {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.fund-transfer-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.fund-transfer-input-group {
+    margin-bottom: 4%;
+}
+
+.fund-transfer-label {
+    margin-bottom: 1%;
+}
+
+.fund-transfer-input {
+    padding: 2.5%;
+    border: 1% solid #ccc;
+    border-radius: 1%;
+}
+
+.fund-transfer-button {
+    padding: 2.5%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+.fund-transfer-button:hover {
+    background-color: #0056b3;
+}
+
+.fund-transfer-message {
+    text-align: center;
+    margin-top: 4%;
+    color: #ff0000;
+}
