@@ -5,7 +5,7 @@ import CustomerHomePage from './customerHomePage';
 import DepositPage from './depositPage';
 import FundTransfer from './transactionPage';
 import CheckBalance from './checkBalance';
-
+import WithdrawPage from './withdrawPage';
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +15,7 @@ function App() {
         <Route path = "/deposit" element = {<DepositPage/>}/>
         <Route path = "/transfer" element = {<FundTransfer/>}/>
         <Route path = "/balance" element = {<CheckBalance/>}/> 
+        <Route path = "/withdraw" element = {<WithdrawPage/>}/>
       </Routes>
     </BrowserRouter>
   );
