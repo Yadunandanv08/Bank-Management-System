@@ -41,10 +41,11 @@ const DepositPage = () => {
 
   return (
     <div className='depositPage'>
-      <h2 className='depositHeader'>Deposit Funds</h2>
+      <div className='depositHeader'><h2>Deposit Funds</h2></div>
       <div className='depositContent'>
         <label className='depositLabel'>Amount to Deposit:</label>
         <input
+          className='depositInput'
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}

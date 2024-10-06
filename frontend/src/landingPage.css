@@ -96,6 +96,32 @@ input {
   border-radius: 5px;
 }
 
+.signInSubmitButton{
+  width: 100%;
+  padding: 4%;
+  background-color: #232526;
+  color: white;
+  border-radius: 25px;
+  border: none;
+}
+
+.signInSubmitButton:hover{
+  background-color: #007bff;
+}
+
+.signUpSubmitButton{
+  width: 100%;
+  padding: 4%;
+  background-color: #232526;
+  color: white;
+  border-radius: 25px;
+  border: none;
+}
+
+.signUpSubmitButton:hover{
+  background-color: #007bff;
+}
+
 .success-message {
   color: green;
   margin-top: 2%;
