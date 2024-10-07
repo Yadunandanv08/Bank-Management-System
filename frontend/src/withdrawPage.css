@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,600;1,600&display=swap');
 .WithdrawPage{
-    background: linear-gradient(#010c1b,#0f1c31);
+    background: #010c1b;
     padding: 4rem;
+    text-align: center;
 }
 .WithdrawHeader {
     color: white;
@@ -30,6 +31,7 @@
     margin-bottom: 3%; 
     color: white;
     width: 90%;
+    text-align: left;
 }
 .input-field{
     width: 90%;

@@ -69,6 +69,7 @@ const CustomerHomePage = () => {
         <button onClick={() => navigate('/withdraw')} className="action-btn">Withdraw</button>
         <button onClick={() => navigate('/balance')} className="action-btn">Check Balance</button>
         <button onClick={() => navigate('/transfer')} className="action-btn">Fund Transfer</button>
+        <button onClick={() => navigate('/transactions')} className="action-btn">View Transactions</button>
       </div>
       
       <div className={`main-content ${isOpen ? 'shrink' : ''}`}>

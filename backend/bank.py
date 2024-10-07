@@ -74,9 +74,6 @@ class Bank:
         except Exception as e:
             print(f"Error during deposit: {e}")
 
-
-
-        
     # function to withdraw money
     def withdraw(self, amount):
         temp = query(f"SELECT balance FROM customers WHERE username = '{self.__username}';")
@@ -154,3 +151,4 @@ class Bank:
                 f")")
             mydb.commit()
             print("Transaction Successful!\n")
+    
