@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './landingPage.css';
 import axios from 'axios';  
 import { useNavigate } from 'react-router-dom'; 
+import introimage from './images/landingpageimage';
 
 const BankLandingPage = () => {
   const [showForm, setShowForm] = useState(null);
@@ -89,7 +90,16 @@ const BankLandingPage = () => {
 
   return (
     <div className="landing-page">
-      <header className="landing-header">
+      <header className='landing-header'></header>
+      <div className='landing-hero'>
+        <div className='intro-section'>
+          <p>loremipsum</p>
+          <img src={introimage}/>
+        </div>
+      </div>
+      <footer>
+      </footer>
+      {/* <header className="landing-header">
         <nav className="navbar">
           <h1 className="logo">CSB Bank</h1>
           <ul className="nav-links">
@@ -106,8 +116,8 @@ const BankLandingPage = () => {
             <button className="cta-button sign-up" onClick={handleSignUpClick}>Sign Up</button>
           </div>
         </div>
-      </header>
-
+      </header> */}
+{/* 
       {showForm === 'signin' && (
         <div className="form-section">
           <h3>Sign In</h3>
@@ -129,8 +139,8 @@ const BankLandingPage = () => {
 
           {signInMessage && <div className="info-message">{signInMessage}</div>}
         </div>
-      )}
-
+      )} */}
+{/* 
       {showForm === 'signup' && (
         <div className="form-section">
           <h3>Sign Up</h3>
@@ -165,7 +175,7 @@ const BankLandingPage = () => {
           {signupMessage && <div className="success-message">{signupMessage}</div>}
           {errorMessage && <div className="error-message">{errorMessage}</div>}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
