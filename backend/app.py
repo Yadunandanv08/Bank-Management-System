@@ -211,8 +211,35 @@ def check_balance():
         return jsonify({'balance': balance[0][0]}), 200
     else:
         return jsonify({'error': 'Balance not found'}), 404
+    
+@app.route('/transactions', methods=['GET'])
+def get_transactions():
+    try:
+        username = request.args.get('username')
+        if not username:
+            return jsonify({"error": "Username is required"}), 400
+        
+        sanitized_username = username.replace(" ", "_")
+        transactions = query(f"SELECT time, type, to_acc, from_acc, accountNumber, amount FROM {sanitized_username}_Transactions")
 
-
+        if transactions:
+            transaction_list = [
+                {
+                    "time": txn[0],  
+                    "type": txn[1],  
+                    "to_acc": txn[2],  
+                    "from_acc": txn[3],  
+                    "accountNumber": txn[4],  
+                    "amount": txn[5]  
+                }
+                for txn in transactions
+            ]
+            return jsonify(transaction_list), 200
+        else:
+            return jsonify({"message": "No transactions found"}), 404
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

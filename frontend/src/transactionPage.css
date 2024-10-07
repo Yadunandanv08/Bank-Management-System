@@ -5,6 +5,7 @@
     border: 1% solid #ccc;
     /* border-radius: 1%;   */
     background-color: #010c1b;
+    padding-left: 10%;
 }
 
 .fund-transfer-header {
@@ -25,12 +26,14 @@
 .fund-transfer-label {
     margin-bottom: 1%;
     color: white;
+    margin-right: 10%;
 }
 
 .fund-transfer-input {
     padding: 1.5%;
     border: 1% solid #ccc;
     border-radius: 25px;
+    width: 90%;
 }
 
 .fund-transfer-button {
@@ -40,6 +43,7 @@
     border: none;
     border-radius: 50px;    
     cursor: pointer;
+    width: 90%;
 }
 
 .fund-transfer-button:hover {
