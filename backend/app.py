@@ -70,7 +70,9 @@ def get_customer_details():
         
         if customer:
             customer_data = {
-                "name": customer[0][0],  
+                "name": customer[0][0],
+                "age": customer[0][2], 
+                "city": customer[0][3], 
                 "accountNumber": customer[0][4],  
                 "balance": customer[0][4]  
             }
