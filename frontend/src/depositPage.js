@@ -10,22 +10,22 @@ const DepositPage = () => {
 
   const handleDepositSubmit = async () => {
     setLoading(true);
-    setMessage(''); // Clear previous messages
+    setMessage('');
     try {
       const response = await axios.post('http://127.0.0.1:5000/deposit', {
-        username: localStorage.getItem('username'), // Fetch from localStorage
-        accountNumber: localStorage.getItem('accountNumber'), // Fetch from localStorage
-        amount: parseFloat(amount), // Ensure it's a number
+        username: localStorage.getItem('username'),
+        accountNumber: localStorage.getItem('accountNumber'),
+        amount: parseFloat(amount),
       }, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-  
+
       if (response.status === 200) {
         setMessage('Deposit successful!');
-        setBalance(response.data.updated_balance); // Set updated balance(current set balance doesnot give accurate balance and prints the previous balance!)
-        setAmount(''); // Clear the input field after a successful deposit
+        setBalance(response.data.updated_balance);
+        setAmount('');
       }
     } catch (error) {
       if (error.response) {
@@ -41,21 +41,27 @@ const DepositPage = () => {
 
   return (
     <div className='depositPage'>
-      <div className='depositHeader'><h2>Deposit Funds</h2></div>
-      <div className='depositContent'>
-        <label className='depositLabel'>Amount to Deposit:</label>
-        <input
-          className='depositInput'
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          min="1" // Ensure the amount is always positive
-        />
-        <button className='depositButton' onClick={handleDepositSubmit} disabled={loading || !amount}>
-          {loading ? 'Processing...' : 'Deposit'}
-        </button>
+      <div className='depositHeader'>
+        <h2>Deposit Funds</h2>
       </div>
-      {message && <p>{message}</p>}
+      <div className='depositContent'>
+        <div className='form-group'>
+          <label className='depositLabel'>Amount to Deposit:</label>
+          <input
+            className='depositInput'
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            min="1"
+          />
+        </div>
+        <div className='form-group'>
+          <button className='depositButton' onClick={handleDepositSubmit} disabled={loading || !amount}>
+            {loading ? 'Processing...' : 'Deposit'}
+          </button>
+        </div>
+      </div>
+      {message && <p className={message.includes('successful') ? 'success-message' : 'error-message'}>{message}</p>}
       {balance !== null && <p>Updated Balance: {balance}</p>}
     </div>
   );

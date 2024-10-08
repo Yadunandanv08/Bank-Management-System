@@ -104,9 +104,9 @@
 }
 
 .profileHeader h1 {
-  font-size: 2.5rem; /* Larger heading for better visibility */
-  color: #2c3e50; /* Darker color for contrast */
-  text-decoration: underline; /* Underline for emphasis */
+  font-size: 2.5rem;
+  color: #2c3e50; 
+  text-decoration: underline; 
 }
 
 /* Profile Container */
@@ -114,13 +114,13 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #ffffff; /* White background for cleanliness */
+  background-color: #ffffff; 
   width: 80%;
-  margin: 20px auto; /* Center with margin on top */
-  height: 70%; /* Height adjustment */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow for depth */
-  padding: 20px; /* Inner spacing */
+  margin: 20px auto; 
+  height: 70%; 
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  padding: 20px; 
 }
 
 /* Picture and Name Section */
@@ -128,62 +128,62 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-right: 20px; /* More space to separate from details */
-  width: 40%; /* Adjust width */
-  height: 100%; /* Full height */
+  padding-right: 20px; 
+  width: 40%; 
+  height: 100%; 
 }
 
 .profile-pic {
-  width: 180px; /* Slightly larger profile picture */
-  height: 180px; /* Maintain aspect ratio */
-  border-radius: 50%; /* Circle shape */
-  margin-bottom: 20px; /* Space below picture */
-  border: 3px solid #3498db; /* Blue border for emphasis */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  width: 180px; 
+  height: 180px;
+  border-radius: 50%; 
+  margin-bottom: 20px; 
+  border: 3px solid #3498db; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .userName {
-  font-size: 2rem; /* Larger font size for the name */
-  color: #34495e; /* Darker color for the name */
-  font-weight: bold; /* Bold for emphasis */
-  text-align: center; /* Center text */
+  font-size: 2rem; 
+  color: #34495e; 
+  font-weight: bold; 
+  text-align: center;
 }
 
 /* Profile Details Section */
 .profile-details {
-  font-size: 1.2rem; /* Slightly larger font for readability */
-  text-align: left; /* Left alignment for clarity */
-  width: 60%; /* Adjust width */
-  padding: 20px; /* Inner padding */
-  border-left: 2px solid #3498db; /* Left border for separation */
+  font-size: 1.2rem; 
+  text-align: left; 
+  width: 60%; 
+  padding: 20px; 
+  border-left: 2px solid #3498db; 
 }
 
 .profile-details h2 {
-  margin-bottom: 20px; /* Space below heading */
-  color: #2c3e50; /* Dark color for headings */
+  margin-bottom: 20px; 
+  color: #2c3e50; 
 }
 
 .userDetails {
-  width: 100%; /* Full width */
-  font-size: 1.1rem; /* Standard font size */
-  margin: 10px 0; /* Space between details */
-  display: flex; /* Flexbox for alignment */
-  align-items: center; /* Center alignment */
+  width: 100%; 
+  font-size: 1.1rem; 
+  margin: 10px 0; 
+  display: flex; 
+  align-items: center; 
 }
 
 .userDetails p {
-  font-size: 1.1rem; /* Font size for details */
-  padding: 10px; /* Inner spacing */
-  border-radius: 5px; /* Rounded corners */
-  color: #555; /* Dark gray for text */
-  background-color: #ecf0f1; /* Light gray background */
-  flex-grow: 1; /* Expand to fill space */
+  font-size: 1.1rem; 
+  padding: 10px; 
+  border-radius: 5px; 
+  color: #555; 
+  background-color: #ecf0f1; 
+  flex-grow: 1; 
 }
 
 .userDetails strong {
-  margin-right: 15px; /* Space between label and value */
-  color: #2980b9; /* Blue color for labels */
-  flex-shrink: 0; /* Prevent shrinking */
+  margin-right: 15px;
+  color: #2980b9; 
+  flex-shrink: 0; 
 }
 
 .buttonset{
@@ -250,13 +250,13 @@
     margin-left: 0;
   }
   .profile-container {
-    flex-direction: column; /* Stack vertically on smaller screens */
-    width: 95%; /* Adjust width for smaller screens */
+    flex-direction: column; 
+    width: 95%; 
   }
 
   .picName,
   .profile-details {
-    width: 100%; /* Full width for mobile */
-    align-items: center; /* Center items on mobile */
+    width: 100%; 
+    align-items: center; 
   }
 }

@@ -7,17 +7,17 @@ const WithdrawPage = () => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [password, setPassword] = useState('');
 
   const handleWithdrawSubmit = async () => {
     setLoading(true);
-    setMessage(''); // Clear previous messages
+    setMessage('');
     try {
       const response = await axios.post('http://127.0.0.1:5000/withdraw', {
-        username: localStorage.getItem('username'), // Fetch from localStorage
-        accountNumber: localStorage.getItem('accountNumber'), // Fetch from localStorage
+        username: localStorage.getItem('username'),
+        accountNumber: localStorage.getItem('accountNumber'),
         amount: parseFloat(amount),
-        password // Ensure it's a number
+        password
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -26,8 +26,8 @@ const WithdrawPage = () => {
   
       if (response.status === 200) {
         setMessage('Withdraw successful!');
-        setBalance(response.data.updated_balance); // Set updated balance(current set balance doesnot give accurate balance and prints the previous balance!)
-        setAmount(''); // Clear the input field after a successful deposit
+        setBalance(response.data.updated_balance);
+        setAmount('');
       }
     } catch (error) {
       if (error.response) {
@@ -50,21 +50,21 @@ const WithdrawPage = () => {
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          min="1" // Ensure the amount is always positive
+          min="1"
         />
-        <label className='WithdrawLabel'>Password</label>
-                <input 
-                    type="password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    className="input-field"
-                />
+        <label className='WithdrawLabel'>Password:</label>
+        <input 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          className="input-field"
+        />
         <button className='WithdrawButton' onClick={handleWithdrawSubmit} disabled={loading || !amount}>
           {loading ? 'Processing...' : 'Withdraw'}
         </button>
       </div>
-      {message && <p>{message}</p>}
-      {balance !== null && <p>Updated Balance: {balance}</p>}
+      {message && <p className={message.includes('failed') ? 'error-message' : 'success-message'}>{message}</p>}
+      {balance !== null && <p>Updated Balance: Rs.{balance}</p>}
     </div>
   );
 };

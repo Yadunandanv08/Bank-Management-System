@@ -10,8 +10,6 @@ const FundTransfer = () => {
 
     const handleTransfer = async (e) => {
         e.preventDefault();
-        
-        // Retrieve the username from local storage
         const username = localStorage.getItem('username');
 
         try {
