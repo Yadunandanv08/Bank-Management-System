@@ -6,7 +6,7 @@ import mysql.connector as sql
 mydb= sql.connect(  
     host="localhost",
     user="root",
-    password="vinay2004",
+    password="",
     database="Bank"
 )
 
