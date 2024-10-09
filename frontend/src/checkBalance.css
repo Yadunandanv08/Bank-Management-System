@@ -1,58 +1,102 @@
 .check-balance-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding-top: 14.7%;
-    background-color: #010c1b;
-    padding-left: 30%;
-    padding-right: 30%;
-    padding-bottom: 12%;
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: 'Arial', sans-serif; 
 }
 
-.checkBalanceHeader{
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10%;
-    color: white;
-    font-size: xx-large;
-}
-
-.checkBalanceLabel{
-    color: white;
+.checkBalanceHeader {
+    color: #2c3e50; 
+    font-size: 2.5rem; 
+    margin-bottom: 30px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
 }
 
 .form-group {
-    margin-bottom: 5%;
+    margin-bottom: 20px; 
+    width: 100%; 
+    max-width: 400px; 
+    text-align: left; 
+}
+
+.checkBalanceLabel {
+    font-weight: bold; 
+    color: #34495e; 
+    margin-bottom: 10px; 
+    display: block; 
 }
 
 .input-field {
-    width: 100%;
-    padding: 2.5%;
-    border: 1% solid #ccc;
-    border-radius: 15px;
+    width: 100%; 
+    padding: 12px; 
+    border: 2px solid #007bff; 
+    border-radius: 30px; 
+    font-size: 1.1rem; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.input-field:focus {
+    border-color: #0056b3; 
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5); /* Soft shadow on focus */
+    outline: none; 
 }
 
 .check-balance-button {
-    padding: 2.5%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    width: 100%;
-    border-radius: 25px;
-    cursor: pointer;
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-size: 1.2rem; 
+    width: 100%; 
+    max-width: 400px; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
 .check-balance-button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; 
+    transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
 .balance-result {
-    margin-top: 5%;
-    text-align: center;
-    color: green;
+    margin-top: 20px; 
+    background-color: #ffffff; 
+    border-radius: 12px; 
+    padding: 15px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+}
+
+.balance-result h3 {
+    color: #2c3e50; 
+    font-size: 1.5rem; 
 }
 
 .error-message {
-    margin-top: 5%;
-    text-align: center;
-    color: red;
+    color: red; 
+    font-weight: bold; 
+    margin-top: 10px; 
+    text-align: center; 
+}
+
+@media (max-width: 768px) {
+    .check-balance-container {
+        padding: 8% 2%; 
+    }
+
+    .checkBalanceHeader {
+        font-size: 2rem; 
+    }
+
+    .input-field {
+        font-size: 1rem; 
+    }
+
+    .check-balance-button {
+        font-size: 1rem; 
+    }
 }

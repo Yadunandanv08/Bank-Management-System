@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './viewTransactions.css'
+import './viewTransactions.css';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -38,42 +38,44 @@ const Transactions = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="error-message">{error}</p>;
   }
 
   return (
-    <div>
-      <h2 className="transactionHeader">Transactions</h2>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Type</th>
-            <th>To Account</th>
-            <th>From Account</th>
-            <th>Account Number</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.length > 0 ? (
-            transactions.map((transaction, index) => (
-              <tr key={index}>
-                <td>{transaction.time}</td>
-                <td>{transaction.type}</td>
-                <td>{transaction.to_acc}</td>
-                <td>{transaction.from_acc}</td>
-                <td>{transaction.accountNumber}</td>
-                <td>{transaction.amount}</td>
-              </tr>
-            ))
-          ) : (
+    <div className="transactions-container">
+      <h2 className="transactionHeader">Transaction History</h2>
+      <div className="table-container">
+        <table>
+          <thead>
             <tr>
-              <td colSpan="6">No transactions found</td>
+              <th>Time</th>
+              <th>Type</th>
+              <th>To Account</th>
+              <th>From Account</th>
+              <th>Account Number</th>
+              <th>Amount</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {transactions.length > 0 ? (
+              transactions.map((transaction, index) => (
+                <tr key={index}>
+                  <td>{transaction.time}</td>
+                  <td>{transaction.type}</td>
+                  <td>{transaction.to_acc}</td>
+                  <td>{transaction.from_acc}</td>
+                  <td>{transaction.accountNumber}</td>
+                  <td>{transaction.amount}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No transactions found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -18,8 +18,9 @@
 }
 .hover-area{
   position: absolute;
-  height: 8vh;
+  height: 14vh;
   width: 100%;
+  z-index: 2;
 }
 .landing-header{
   font-family: "DM Sans", sans-serif;
@@ -213,6 +214,7 @@
   width: 100%;
   padding: 8px;
   margin-bottom: 4%;
+  font-size: 1rem;
   background: none;
   border: none;
   border-bottom: 1px solid whitesmoke;

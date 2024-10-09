@@ -1,143 +1,243 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
-}
-
 .customer-home-page {
   display: flex;
   height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
 }
 
 .sidebar {
-  width: 25%;
-  height: 100%;
-  background-color:  #021e44;
-  color: white;
+  width: 0;
   position: fixed;
-  left: -25%;
+  top: 0;
+  left: -250px;
+  height: 100%;
+  background-color: #333;
+  padding-top: 60px;
   transition: left 0.3s ease;
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  z-index: 1000;
 }
 
 .sidebar.open {
   left: 0;
-  padding: 0;
-  padding-top: 7%;
-  text-align: center;
+  width: 250px;
 }
-
 .sidebar h2 {
-  font-size: 2.5rem;
-  margin-bottom: 5%;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-.action-btn {
-  background-color:  #021e44;
-  color: #92a7be;
-  padding: 7% 5%;
-  font-size: 1.5rem;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  border-bottom-color: #066fcb;
-  border-top-color: #066fcb;
-  border-left-color: #021e44;
-}
-
-.action-btn:hover {
-  background-color: #0056b3;
+.sidebar .action-btn {
+  background-color: #444;
+  border-bottom: #333;
   color: white;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  width: 100%;
+  height: 12%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar .action-btn:hover {
+  background-color: #555;
 }
 
 .sidebar-toggle {
-  font-size: 2.5rem;
-  color: #92a7be;
-  background: none;
+  color: rgb(46, 44, 44);
   border: none;
-  position: fixed;
-  top: 2%;
-  left: 2%;
+  padding: 15px;
+  font-size: 20px;
   cursor: pointer;
-  z-index: 1000;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  background-color: #444;
 }
 
 .main-content {
-  margin-left: 25%;
-  flex-grow: 1;
-  padding: 5%;
+  margin-left: 0;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+   background-color: #ffff;
   transition: margin-left 0.3s ease;
 }
 
-.shrink {
-  margin-left: 0;
+.main-content.shrink {
+  margin-left: 250px;
+  background-color: #ffff;
 }
 
-.profile-container {
+/* Top bar styles */
+.topBar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 5%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-pic {
-  width: 15%;
-  height: auto;
-  border-radius: 50%;
-  background-color: #e9ecef;
-  margin-bottom: 5%;
-}
-
-.profile-details {
-  text-align: center;
-}
-
-.profile-details h1 {
-  font-size: 2rem;
-  color: #04284e;
-  margin-bottom: 3%;
-}
-
-.profile-details p {
-  font-size: 1.2rem;
-  color: #333;
+  justify-content: flex-end;
 }
 
 .logout-button {
-  background-color: #ff4d4d;
+  background-color: #f44336;
   color: white;
-  padding: 2% 5%;
   border: none;
-  border-radius: 5px;
-  font-size: 1.5rem;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  margin-top: 5%;
+  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: #d43f3f;
+  background-color: #d32f2f;
 }
 
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    padding: 2%;
-  }
+/* Profile Header */
+.profileHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
+.profileHeader h1 {
+  font-size: 2.5rem;
+  color: #2c3e50; 
+  text-decoration: underline; 
+}
+
+/* Profile Container */
+.profile-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff; 
+  width: 80%;
+  margin: 20px auto; 
+  height: 70%; 
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  padding: 20px; 
+}
+
+/* Picture and Name Section */
+.picName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 20px; 
+  width: 40%; 
+  height: 100%; 
+}
+
+.profile-pic {
+  width: 180px; 
+  height: 180px;
+  border-radius: 50%; 
+  margin-bottom: 20px; 
+  border: 3px solid #3498db; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.userName {
+  font-size: 2rem; 
+  color: #34495e; 
+  font-weight: bold; 
+  text-align: center;
+}
+
+/* Profile Details Section */
+.profile-details {
+  font-size: 1.2rem; 
+  text-align: left; 
+  width: 60%; 
+  padding: 20px; 
+  border-left: 2px solid #3498db; 
+}
+
+.profile-details h2 {
+  margin-bottom: 20px; 
+  color: #2c3e50; 
+}
+
+.userDetails {
+  width: 100%; 
+  font-size: 1.1rem; 
+  margin: 10px 0; 
+  display: flex; 
+  align-items: center; 
+}
+
+.userDetails p {
+  font-size: 1.1rem; 
+  padding: 10px; 
+  border-radius: 5px; 
+  color: #555; 
+  background-color: #ecf0f1; 
+  flex-grow: 1; 
+}
+
+.userDetails strong {
+  margin-right: 15px;
+  color: #2980b9; 
+  flex-shrink: 0; 
+}
+
+.buttonset{
+  display: flex;
+  background-color: #faf6f6;
+}
+
+.buttonset1 {
+  display: flex;
+  margin-left: 25%;
+}
+
+.buttonset1 img{
+  height: 70px;
+  width: 70px;
+  margin: 10%;
+  border-radius: 100px;
+  background-color: #f2eded;
+}
+
+.buttonset2{
+  display: flex;
+  margin-left: 10%;
+}
+
+.buttonset2 img{
+  height: 70px;
+  width: 70px;
+  margin: 10%;
+  border-radius: 100px;
+}
+
+
+
+/* Error message */
+.error-message {
+  color: red;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Loading screen */
+.loading {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
   .sidebar {
-    width: 100%;
+    width: 0;
     left: -100%;
   }
 
@@ -146,33 +246,17 @@ body {
     width: 100%;
   }
 
-  .sidebar-toggle {
-    left: 2%;
+  .main-content.shrink {
+    margin-left: 0;
   }
-
   .profile-container {
-    padding: 2%;
+    flex-direction: column; 
+    width: 95%; 
   }
 
-  .profile-pic {
-    width: 25%;
-  }
-
-  .profile-details h1 {
-    font-size: 1.6rem;
-  }
-
-  .profile-details p {
-    font-size: 1rem;
-  }
-
-  .action-btn {
-    font-size: 1rem;
-    padding: 2% 3%;
-  }
-
-  .logout-button {
-    font-size: 1rem;
-    padding: 1% 3%;
+  .picName,
+  .profile-details {
+    width: 100%; 
+    align-items: center; 
   }
 }

@@ -1,82 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,600;1,600&display=swap');
-.WithdrawPage{
-    background: #010c1b;
-    padding: 4rem;
-    text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  
+.WithdrawPage {
+    background-color: #e9ecef; 
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: 'Arial', sans-serif; 
 }
+
 .WithdrawHeader {
-    color: white;
-    font-size: 2rem;
-    text-align: center;
-    padding-bottom: 1rem;
-    font-family: "Mulish", sans-serif;
+    color: #2c3e50; 
+    font-size: 2.5rem; 
+    margin-bottom: 20px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
 }
 
 .WithdrawContent {
-
-    border-radius: 16px;
-    padding: 5%; 
-    max-width: 90%; 
-    margin: 0 auto; 
-    align-items: center;
-    /* background: red; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-color: #ffffff; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    padding: 50px; 
+    max-width: 400px; 
+    width: 100%; 
+    text-align: left; 
 }
 
 .WithdrawLabel {
-    display: block;
-    margin-bottom: 3%; 
-    color: white;
-    width: 90%;
-    text-align: left;
+    font-weight: bold; 
+    color: #34495e; 
+    margin-bottom: 10px; 
+    display: block; 
 }
-.input-field{
-    width: 90%;
-    border-radius: 50px;
+
+input[type="number"],
+.input-field {
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 15px; 
+    border: 2px solid #007bff; 
+    border-radius: 30px; 
+    font-size: 1.1rem; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
-/* input[type="number"]{
-    appearance: none;
-} */
-/* input[type="number"] {
-    width: 90%; 
-    padding: 3%; 
-    margin-bottom: 5%; 
-    border: 1px solid #ccc;
-    background: #9dbae953;
-    border-radius: 50px;
-    font-size: 16px;
-} */
+
+input[type="number"]:focus,
+.input-field:focus {
+    border-color: #0056b3; 
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5); /* Soft shadow on focus */
+    outline: none; 
+}
 
 .WithdrawButton {
-    background-color: #007bff;
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 3%; 
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 90%; 
-}   
-
-.WithdrawButton:disabled {
-    background-color: #ffffff44;
-}
-.WithdrawButton:enabled:hover{
-    background-color: #0063cd;
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-size: 1.2rem; 
+    width: 100%; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
+.WithdrawButton:hover {
+    background-color: #0056b3; 
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
 
 .success-message {
     color: green;
     font-weight: bold;
     text-align: center;
+    margin-top: 15px; 
 }
 
 .error-message {
     color: red;
     font-weight: bold;
     text-align: center;
+    margin-top: 15px; 
+}
+
+@media (max-width: 768px) {
+    .WithdrawHeader {
+        font-size: 2rem; 
+    }
+
+    input[type="number"],
+    .input-field {
+        font-size: 1rem; 
+    }
+
+    .WithdrawButton {
+        font-size: 1rem; 
+    }
 }

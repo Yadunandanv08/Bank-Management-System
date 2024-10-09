@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './checkBalance.css'
+import './checkBalance.css';
 
 const CheckBalance = () => {
     const [password, setPassword] = useState('');
@@ -40,10 +40,11 @@ const CheckBalance = () => {
                     className="input-field"
                 />
             </div>
-            <button onClick={handleCheckBalance} className="check-balance-button">
-                Check Balance
-            </button>
-
+            <div className="form-group">
+                <button onClick={handleCheckBalance} className="check-balance-button">
+                    Check Balance
+                </button>
+            </div>
             {balance !== null && (
                 <div className="balance-result">
                     <h3>Your Balance: Rs.{balance}</h3>
