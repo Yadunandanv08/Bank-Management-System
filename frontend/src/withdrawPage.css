@@ -46,7 +46,7 @@
     display: block; 
 }
 
-input[type="number"],
+.withdraw-amount,
 .input-field {
     width: 100%; 
     padding: 12px; 
@@ -57,7 +57,7 @@ input[type="number"],
     transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
 
-input[type="number"]:focus,
+.withdraw-amount:focus,
 .input-field:focus {
     border-color: #0056b3; 
     box-shadow: 0 0 5px rgba(0, 91, 187, 0.5); /* Soft shadow on focus */

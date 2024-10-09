@@ -103,7 +103,7 @@ const BankLandingPage = () => {
         </video> */}
         <div className='hover-area'>
           <header className='landing-header'>
-            <p className='landing-header-logo'>Sura will live</p>
+            <p className='landing-header-logo'>CsBank</p>
             <div className='landing-header-links'>
               <p>Features</p>
               <p>About Us</p>
