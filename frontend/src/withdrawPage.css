@@ -37,8 +37,10 @@
     width: 90%;
     border-radius: 50px;
 }
-
-input[type="number"] {
+/* input[type="number"]{
+    appearance: none;
+} */
+/* input[type="number"] {
     width: 90%; 
     padding: 3%; 
     margin-bottom: 5%; 
@@ -46,7 +48,7 @@ input[type="number"] {
     background: #9dbae953;
     border-radius: 50px;
     font-size: 16px;
-}
+} */
 
 .WithdrawButton {
     background-color: #007bff;

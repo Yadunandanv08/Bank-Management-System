@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './landingPage.css';
 import axios from 'axios';  
-import { useNavigate } from 'react-router-dom'; 
-import introimage from './images/landingpageimage';
+import { useNavigate } from 'react-router-dom';
+import introv from './images/4k.mp4';
+import chechi from './images/hero-image.png';
+import sura from './images/sura.jpeg';
 
 const BankLandingPage = () => {
-  const [showForm, setShowForm] = useState(null);
+  const [showForm, setShowForm] = useState('signin');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState('');
@@ -16,7 +18,11 @@ const BankLandingPage = () => {
   const [signInMessage, setSignInMessage] = useState('');
 
   const navigate = useNavigate(); 
+  const [highlightBtn,setHighlightBtn] = useState(0);
 
+  const highLightThis = (clickedbtnindex)=>{
+    setHighlightBtn(clickedbtnindex);
+  }
   const handleSignInClick = () => {
     setShowForm('signin');
   };
@@ -90,35 +96,40 @@ const BankLandingPage = () => {
 
   return (
     <div className="landing-page">
-      <header className='landing-header'></header>
+      <img src={chechi} className='background-clip'></img>
+        {/* <video autoplay muted playsInline className="background-clip">
+          <source src={introv} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video> */}
+        <div className='hover-area'>
+          <header className='landing-header'>
+            <p className='landing-header-logo'>Sura will live</p>
+            <div className='landing-header-links'>
+              <p>Features</p>
+              <p>About Us</p>
+              <p>Content</p>
+            </div>
+            {/* content */}
+          </header>
+        </div>
       <div className='landing-hero'>
-        <div className='intro-section'>
-          <p>loremipsum</p>
-          <img src={introimage}/>
-        </div>
-      </div>
-      <footer>
-      </footer>
-      {/* <header className="landing-header">
-        <nav className="navbar">
-          <h1 className="logo">CSB Bank</h1>
-          <ul className="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-        <div className="hero-section">
-          <h2>Secure, Simple, and Fast Banking</h2>
-          <p>Manage your finances with ease, anytime, anywhere.</p>
-          <div className="hero-buttons">
-            <button className="cta-button sign-in" onClick={handleSignInClick}>Sign In</button>
-            <button className="cta-button sign-up" onClick={handleSignUpClick}>Sign Up</button>
+        <div className='intro-content'>
+          <div className='intro-content-text'>
+            <h2>Secure, Simple, and Fast Banking</h2>
+            <p>Manage your finances with ease, anytime, anywhere.</p>
           </div>
-        </div>
-      </header> */}
-{/* 
-      {showForm === 'signin' && (
+          <div className='form-content'>
+            <div className="hero-buttons">
+              <button className={`cta-button ${highlightBtn === 0? 'active' : ''}`} onClick={() => {
+                highLightThis(0);
+                handleSignInClick();
+              }}>Sign In</button>
+              <button className={`cta-button ${highlightBtn === 1? 'active': ''}`} onClick={() => {
+                highLightThis(1);
+                handleSignUpClick();
+              }}>Sign Up</button>
+            </div>
+            {showForm === 'signin' && (
         <div className="form-section">
           <h3>Sign In</h3>
           <input 
@@ -139,8 +150,8 @@ const BankLandingPage = () => {
 
           {signInMessage && <div className="info-message">{signInMessage}</div>}
         </div>
-      )} */}
-{/* 
+      )}
+
       {showForm === 'signup' && (
         <div className="form-section">
           <h3>Sign Up</h3>
@@ -168,14 +179,37 @@ const BankLandingPage = () => {
             value={city} 
             onChange={(e) => setCity(e.target.value)} 
           />
-          <button className='signUpSubmitButton' onClick={handleSignUpSubmit} disabled={loading}>
+          <button className='signInSubmitButton' onClick={handleSignUpSubmit} disabled={loading}>
             {loading ? 'Signing Up...' : 'Submit'}
           </button>
 
           {signupMessage && <div className="success-message">{signupMessage}</div>}
           {errorMessage && <div className="error-message">{errorMessage}</div>}
         </div>
-      )} */}
+      )}
+          </div>
+        </div>
+      </div>
+      <footer className='landing-footer'></footer>
+
+      {/* <header className="landing-header">
+        <nav className="navbar">
+          <h1 className="logo">CSB Bank</h1>
+          <ul className="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div className="hero-section">
+          <h2>Secure, Simple, and Fast Banking</h2>
+          <p>Manage your finances with ease, anytime, anywhere.</p>
+          <div className="hero-buttons">
+            <button className="cta-button sign-in" onClick={handleSignInClick}>Sign In</button>
+            <button className="cta-button sign-up" onClick={handleSignUpClick}>Sign Up</button>
+          </div>
+        </div>
+      </header> */}
     </div>
   );
 };
