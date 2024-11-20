@@ -47,6 +47,7 @@ const WithdrawPage = () => {
       <div className='WithdrawContent'>
         <label className='WithdrawLabel'>Amount to Withdraw:</label>
         <input
+          className='withdraw-amount'
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
