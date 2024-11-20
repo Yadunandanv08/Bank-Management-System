@@ -79,7 +79,7 @@ cd frontend
 ```sh
 npm start
 ```
-
+As a prerequisite, update the database.py file with your system's username and password, and ensure that a MySQL database named 'Bank' is created.
 
 ## Contributing
 We welcome contributions from the community! To contribute, follow these steps:
